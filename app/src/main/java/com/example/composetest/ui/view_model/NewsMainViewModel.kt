@@ -3,7 +3,6 @@ package com.example.composetest.ui.view_model
 import androidx.lifecycle.ViewModel
 import com.example.composetest.domain.models.FeedPost
 import com.example.composetest.domain.models.StatisticItem
-import com.example.composetest.ui.models.NavigationItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -17,13 +16,6 @@ class NewsMainViewModel : ViewModel() {
 
     private val _feedPosts = MutableStateFlow<List<FeedPost>>(mockFeedPost)
     val feedPosts: StateFlow<List<FeedPost>> = _feedPosts
-
-    private val _selectedNavItem = MutableStateFlow<NavigationItem>(NavigationItem.Home)
-    val selectedNavItem: StateFlow<NavigationItem> = _selectedNavItem
-
-    fun selectNavItem(item: NavigationItem) {
-        _selectedNavItem.value = item
-    }
 
     fun updateCount(feedPost: FeedPost, item: StatisticItem) {
         val oldPosts = feedPosts.value.toMutableList()

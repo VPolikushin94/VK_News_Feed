@@ -147,7 +147,7 @@ fun Statistics(
             )
             val likeType = statistics.getItemByType(StatisticType.LIKES)
             IconWithText(
-                iconResId = R.drawable.ic_favorite,
+                iconResId = R.drawable.ic_favourite,
                 text = likeType.count.toString(),
                 onItemClickListener = {
                     onLikeClickListener(likeType)
