@@ -12,19 +12,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.composetest.navigation.AppNavGraph
+import com.example.composetest.navigation.rememberNavigationState
 import com.example.composetest.ui.models.NavigationItem
 import com.example.composetest.ui.view_model.NewsMainViewModel
 
 @Composable
 fun MainScreen(viewModel: NewsMainViewModel) {
-    val navHostController = rememberNavController()
+    val navigationState = rememberNavigationState()
 
     Scaffold(
         bottomBar = {
             BottomNavigation {
-                val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+                val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
                 val items = listOf(
                     NavigationItem.Home,
@@ -34,7 +34,9 @@ fun MainScreen(viewModel: NewsMainViewModel) {
                 items.forEach { item ->
                     BottomNavigationItem(
                         selected = currentRoute == item.screen.route,
-                        onClick = { navHostController.navigate(item.screen.route) },
+                        onClick = {
+                            navigationState.navigateTo(item.screen.route)
+                        },
                         icon = {
                             Icon(
                                 painter = painterResource(id = item.iconResId),
@@ -52,7 +54,7 @@ fun MainScreen(viewModel: NewsMainViewModel) {
         }
     ) {
         AppNavGraph(
-            navHostController = navHostController,
+            navHostController = navigationState.navHostController,
             homeScreenContent = { HomeScreen(viewModel = viewModel, paddingValues = it) },
             favouriteScreenContent = { Text(text = "Favorites") },
             profileScreenContent = { Text(text = "Profile") }
