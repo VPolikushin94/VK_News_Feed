@@ -11,7 +11,7 @@ sealed class NavigationItem(
     @DrawableRes val iconResId: Int
 ) {
     data object Home : NavigationItem(
-        screen = Screen.NewsFeed,
+        screen = Screen.Home,
         titleResId = R.string.main,
         iconResId = R.drawable.ic_home
     )
